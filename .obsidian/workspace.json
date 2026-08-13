@@ -1,20 +1,73 @@
 {
   "main": {
-    "id": "7b17fc49d2a8d66d",
+    "id": "1786bba06248a976",
     "type": "split",
     "children": [
       {
-        "id": "353b4c8876be775f",
+        "id": "4d011064ba314969",
         "type": "tabs",
         "children": [
           {
-            "id": "6673d7e210295b57",
+            "id": "88b66d3fa0d3708d",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "PROJECT OVERVIEW.md.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "PROJECT OVERVIEW.md"
+            }
+          },
+          {
+            "id": "491c5a7bf663dd00",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Techstack.md.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Techstack.md"
+            }
+          },
+          {
+            "id": "203b93c015a4f610",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Setup Log.md.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Setup Log.md"
+            }
+          }
+        ],
+        "currentTab": 2
+      },
+      {
+        "id": "fdaebd07b50de085",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ebded65762b714dc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "venv/Lib/site-packages/flask/sansio/README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
             }
           }
         ]
@@ -23,21 +76,21 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "1566b47b34f7ed42",
+    "id": "6d13a991afa22a0f",
     "type": "split",
     "children": [
       {
-        "id": "a13cd8cd475680e5",
+        "id": "852962b564bfd15f",
         "type": "tabs",
         "children": [
           {
-            "id": "dd7ac6c8f79cb922",
+            "id": "3ebdcb880f28513b",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": true,
+                "autoReveal": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
@@ -46,7 +99,7 @@
             }
           },
           {
-            "id": "776211f589f676ef",
+            "id": "6c82c229007dd32d",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -63,7 +116,7 @@
             }
           },
           {
-            "id": "147507b41d512c29",
+            "id": "9fc88ddb4e07b1ad",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -82,20 +135,20 @@
     "width": 300
   },
   "right": {
-    "id": "d293204c8fda7001",
+    "id": "31138f130fcfb143",
     "type": "split",
     "children": [
       {
-        "id": "c7c554bfeb811cf3",
+        "id": "ddec94c2b221fc96",
         "type": "tabs",
         "children": [
           {
-            "id": "ed3dce5a08b88bca",
+            "id": "b4b549b7aa499b61",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Untitled.md",
+                "file": "Setup Log.md.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -109,12 +162,12 @@
             }
           },
           {
-            "id": "e9977d4366f406eb",
+            "id": "18d81fc4cf39906e",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Untitled.md",
+                "file": "Setup Log.md.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -123,7 +176,7 @@
             }
           },
           {
-            "id": "6eb535914a6c127f",
+            "id": "ee6d73321c7b99d0",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -138,7 +191,7 @@
             }
           },
           {
-            "id": "a5e4a83df719477f",
+            "id": "f3d16dbf26760b9a",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -152,12 +205,12 @@
             }
           },
           {
-            "id": "01c4f924b248b985",
+            "id": "a6f595a1265f2a5c",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Untitled.md",
+                "file": "Setup Log.md.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -184,9 +237,31 @@
       "bases:Create new base": false
     }
   },
-  "active": "dd7ac6c8f79cb922",
+  "active": "203b93c015a4f610",
   "lastOpenFiles": [
-    "Untitled",
-    "Untitled.md"
+    "venv/Lib/site-packages/flask/sansio/README.md",
+    "Setup Log.md.md",
+    "venv/Lib/site-packages/idna-3.18.dist-info/licenses/LICENSE.md",
+    "venv/Lib/site-packages/docstring_parser-0.18.0.dist-info/licenses/LICENSE.md",
+    "venv/Lib/site-packages/pydantic_core/__pycache__/__init__.cpython-311.pyc",
+    "venv/Lib/site-packages/pydantic_core/__pycache__/core_schema.cpython-311.pyc",
+    "venv/Lib/site-packages/pydantic_core/__pycache__",
+    "venv/Lib/site-packages/pydantic_core/_pydantic_core.pyi",
+    "venv/Lib/site-packages/pydantic_core/__init__.py",
+    "venv/Lib/site-packages/pydantic_core/_pydantic_core.cp311-win_amd64.pyd",
+    "venv/Lib/site-packages/pydantic_core/py.typed",
+    "venv/Lib/site-packages/pydantic_core/core_schema.py",
+    "venv/Lib/site-packages/pydantic_core",
+    "venv/Lib/site-packages/itsdangerous/__pycache__/__init__.cpython-311.pyc",
+    "venv/Lib/site-packages/werkzeug/debug/shared/more.png",
+    "venv/Lib/site-packages/werkzeug/debug/shared/less.png",
+    "venv/Lib/site-packages/werkzeug/debug/shared/ICON_LICENSE.md",
+    "venv/Lib/site-packages/werkzeug/debug/shared/console.png",
+    "venv/Lib/site-packages/httpx-0.28.1.dist-info/licenses/LICENSE.md",
+    "venv/Lib/site-packages/httpcore-1.0.9.dist-info/licenses/LICENSE.md",
+    "venv/Lib/site-packages/anthropic/lib/google_cloud/README.md",
+    "venv/Lib/site-packages/anthropic/lib/foundry.md",
+    "Techstack.md.md",
+    "PROJECT OVERVIEW.md.md"
   ]
 }
