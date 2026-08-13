@@ -60,10 +60,14 @@
             "id": "ebded65762b714dc",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "venv/Lib/site-packages/flask/sansio/README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
             }
           }
         ]
@@ -233,19 +237,21 @@
       "bases:Create new base": false
     }
   },
-  "active": "203b93c015a4f610",
+  "active": "ebded65762b714dc",
   "lastOpenFiles": [
-    "venv/Scripts/pythonw_d.exe",
-    "venv/Scripts/python_d.exe",
-    "venv/Scripts/pythonw.exe",
-    "venv/Scripts/python.exe",
-    "venv/Scripts/pip3.exe",
-    "venv/Scripts/pip.exe",
-    "venv/Scripts/pip3.11.exe",
-    "venv/Scripts/normalizer.exe",
-    "venv/Scripts/idna.exe",
-    "venv/Scripts/distro.exe",
-    "venv/Scripts/httpx.exe",
+    "venv/Lib/site-packages/idna-3.18.dist-info/licenses/LICENSE.md",
+    "venv/Lib/site-packages/docstring_parser-0.18.0.dist-info/licenses/LICENSE.md",
+    "Setup Log.md.md",
+    "venv/Lib/site-packages/pydantic_core/__pycache__/__init__.cpython-311.pyc",
+    "venv/Lib/site-packages/pydantic_core/__pycache__/core_schema.cpython-311.pyc",
+    "venv/Lib/site-packages/pydantic_core/__pycache__",
+    "venv/Lib/site-packages/pydantic_core/_pydantic_core.pyi",
+    "venv/Lib/site-packages/pydantic_core/__init__.py",
+    "venv/Lib/site-packages/pydantic_core/_pydantic_core.cp311-win_amd64.pyd",
+    "venv/Lib/site-packages/pydantic_core/py.typed",
+    "venv/Lib/site-packages/pydantic_core/core_schema.py",
+    "venv/Lib/site-packages/pydantic_core",
+    "venv/Lib/site-packages/itsdangerous/__pycache__/__init__.cpython-311.pyc",
     "venv/Lib/site-packages/werkzeug/debug/shared/more.png",
     "venv/Lib/site-packages/werkzeug/debug/shared/less.png",
     "venv/Lib/site-packages/werkzeug/debug/shared/ICON_LICENSE.md",
@@ -253,10 +259,8 @@
     "venv/Lib/site-packages/httpx-0.28.1.dist-info/licenses/LICENSE.md",
     "venv/Lib/site-packages/httpcore-1.0.9.dist-info/licenses/LICENSE.md",
     "venv/Lib/site-packages/flask/sansio/README.md",
-    "venv/Lib/site-packages/docstring_parser-0.18.0.dist-info/licenses/LICENSE.md",
     "venv/Lib/site-packages/anthropic/lib/google_cloud/README.md",
     "venv/Lib/site-packages/anthropic/lib/foundry.md",
-    "Setup Log.md.md",
     "Techstack.md.md",
     "PROJECT OVERVIEW.md.md"
   ]
