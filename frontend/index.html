@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F1 GridScope | Explore Every F1 Season</title>
+  
+  <!-- Fonts: Inter & Formula-style Racing Sans (Barlow & Titillium Web) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700;1,800&family=Inter:wght@400;500;600;700;800&family=Titillium+Web:wght@600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS VARIABLES & THEME CONFIGURATION
+       ========================================================================== */
+    :root {
+      --f1-red: #E8002D;
+      --f1-red-hover: #ff1a43;
+      --f1-red-glow: rgba(232, 0, 45, 0.35);
+      --bg-pure-black: #0a0a0a;
+      --bg-card: #121214;
+      --bg-card-elevated: #18181c;
+      --border-subtle: #222226;
+      --border-active: #383840;
+      --text-white: #ffffff;
+      --text-gray: #a3a3a8;
+      --text-muted: #62626a;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-tech: 'Titillium Web', sans-serif;
+      --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ==========================================================================
+       RESET & BASE STYLES
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-pure-black);
+      color: var(--text-gray);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(232, 0, 45, 0.08) 0%, transparent 60%),
+        linear-gradient(to bottom, transparent 80%, rgba(0, 0, 0, 0.8) 100%);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      height: 72px;
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      font-style: italic;
+    }
+
+    .logo-badge {
+      background-color: var(--f1-red);
+      color: var(--text-white);
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      line-height: 1;
+      transform: skew(-10deg);
+    }
+
+    .logo-badge span {
+      display: inline-block;
+      transform: skew(10deg);
+    }
+
+    .logo-text {
+      color: var(--text-white);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 32px;
+    }
+
+    .nav-item {
+      font-size: 0.925rem;
+      font-weight: 600;
+      color: var(--text-gray);
+      transition: var(--transition-smooth);
+      position: relative;
+      padding: 6px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-item:hover, 
+    .nav-item.active {
+      color: var(--text-white);
+    }
+
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--f1-red);
+      box-shadow: 0 0 8px var(--f1-red);
+    }
+
+    .nav-cta {
+      background-color: var(--f1-red);
+      color: var(--text-white);
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-radius: 6px;
+      transition: var(--transition-smooth);
+      display: inline-block;
+    }
+
+    .nav-cta:hover {
+      background-color: var(--f1-red-hover);
+      box-shadow: 0 0 16px var(--f1-red-glow);
+    }
+
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
+    .hero {
+      padding: 64px 0 32px 0;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero-tag {
+      font-family: var(--font-tech);
+      color: var(--f1-red);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--f1-red);
+      border-radius: 50%;
+    }
+
+    .hero-heading {
+      font-family: var(--font-display);
+      font-size: 3.75rem;
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--text-white);
+      text-transform: uppercase;
+      font-style: italic;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .red-underline-accent {
+      position: relative;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .red-underline-accent::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 4px;
+      width: 100%;
+      height: 6px;
+      background-color: var(--f1-red);
+      transform: skew(-15deg);
+      z-index: -1;
+    }
+
+    .hero-subtext {
+      font-size: 1.125rem;
+      color: var(--text-gray);
+      max-width: 600px;
+      margin-top: 14px;
+    }
+
+    /* ==========================================================================
+       SEASON SELECTOR
+       ========================================================================== */
+    .season-section {
+      padding: 16px 0 36px;
+    }
+
+    .season-selector-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 6px 2px 14px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--f1-red) var(--border-subtle);
+    }
+
+    .season-selector-wrapper::-webkit-scrollbar {
+      height: 4px;
+    }
+    .season-selector-wrapper::-webkit-scrollbar-thumb {
+      background: var(--border-active);
+      border-radius: 4px;
+    }
+
+    .season-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-right: 8px;
+      white-space: nowrap;
+    }
+
+    .season-btn {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-gray);
+      font-family: var(--font-tech);
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      white-space: nowrap;
+    }
+
+    .season-btn:hover {
+      border-color: var(--border-active);
+      color: var(--text-white);
+      background-color: var(--bg-card-elevated);
+    }
+
+    .season-btn.active {
+      background-color: var(--f1-red);
+      color: var(--text-white);
+      border-color: var(--f1-red);
+      box-shadow: 0 4px 18px var(--f1-red-glow);
+    }
+
+    /* ==========================================================================
+       STATS ROW (4 CARDS)
+       ========================================================================== */
+    .stats-section {
+      padding-bottom: 48px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .stat-card {
+      background-color: var(--bg-card);
+      border-radius: 10px;
+      padding: 24px 20px;
+      position: relative;
+      border-top: 3.5px solid var(--f1-red);
+      border-right: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      border-left: 1px solid var(--border-subtle);
+      transition: var(--transition-smooth);
+    }
+
+    .stat-card:hover {
+      background-color: var(--bg-card-elevated);
+      transform: translateY(-2px);
+    }
+
+    .stat-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: var(--font-tech);
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--text-white);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .stat-detail {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-pill {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background-color: rgba(255, 255, 255, 0.08);
+      color: var(--text-white);
+    }
+
+    /* ==========================================================================
+       DRIVER GRID SECTION
+       ========================================================================== */
+    .grid-section {
+      padding: 16px 0 80px 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 16px;
+    }
+
+    .section-title-wrap h2 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--text-white);
+      text-transform: uppercase;
+      font-style: italic;
+      line-height: 1;
+    }
+
+    .section-title-wrap p {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      margin-top: 6px;
+    }
+
+    .driver-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    /* DRIVER CARD (WITH REQUESTED HOVER GLOW) */
+    .driver-card {
+      background: linear-gradient(180deg, var(--bg-card) 0%, #0d0d10 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .driver-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: transparent;
+      transition: var(--transition-smooth);
+    }
+
+    /* Hover Glow Requirement */
+    .driver-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--f1-red);
+      box-shadow: 0 10px 30px var(--f1-red-glow), 0 0 1px 1px var(--f1-red);
+    }
+
+    .driver-card:hover::before {
+      background: var(--f1-red);
+    }
+
+    .driver-number {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 900;
+      font-style: italic;
+      color: var(--f1-red);
+      line-height: 1;
+      opacity: 0.9;
+    }
+
+    .driver-avatar-wrapper {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      margin: 12px 0 18px 0;
+    }
+
+    .driver-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle, #25252b 0%, #151518 100%);
+      border: 2px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: var(--transition-smooth);
+    }
+
+    .driver-card:hover .driver-avatar {
+      border-color: var(--f1-red);
+    }
+
+    .driver-avatar svg {
+      width: 58px;
+      height: 58px;
+      fill: #4c4c55;
+      transition: var(--transition-smooth);
+    }
+
+    .driver-card:hover .driver-avatar svg {
+      fill: #a5a5b0;
+    }
+
+    .driver-info {
+      width: 100%;
+    }
+
+    .driver-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-white);
+      line-height: 1.25;
+      text-transform: uppercase;
+      letter-spacing: -0.2px;
+    }
+
+    .driver-name span {
+      display: block;
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      margin-bottom: 2px;
+      letter-spacing: 0;
+    }
+
+    .driver-team {
+      font-size: 0.875rem;
+      color: var(--text-gray);
+      margin-top: 6px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .team-badge-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    .card-footer-stats {
+      width: 100%;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-around;
+      font-size: 0.775rem;
+    }
+
+    .card-footer-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .card-footer-item span:first-child {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+
+    .card-footer-item span:last-child {
+      color: var(--text-white);
+      font-weight: 700;
+      font-family: var(--font-tech);
+      font-size: 0.95rem;
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      background-color: #060607;
+      padding: 40px 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 1080px) {
+      .driver-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta {
+        display: none;
+      }
+      .hero-heading {
+        font-size: 2.75rem;
+      }
+      .driver-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero-heading {
+        font-size: 2.2rem;
+      }
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .driver-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION BAR -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <span class="logo-badge"><span>F1</span></span>
+        <span class="logo-text">GridScope</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#" class="nav-item active">Home</a></li>
+        <li><a href="#" class="nav-item">Seasons</a></li>
+        <li><a href="#" class="nav-item">Drivers</a></li>
+        <li><a href="#" class="nav-item">Teams</a></li>
+        <li><a href="#" class="nav-item">Races</a></li>
+      </ul>
+
+      <a href="#drivers" class="nav-cta">Live Timing</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">Official Racing Telemetry & Database</div>
+        <h1 class="hero-heading">
+          Explore Every <span class="red-underline-accent">F1 Season</span>
+        </h1>
+        <p class="hero-subtext">
+          Comprehensive statistics, driver head-to-heads, constructor telemetry, and championship results from 2021 through 2026.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEASON SELECTOR -->
+  <section class="season-section">
+    <div class="container">
+      <div class="season-selector-wrapper">
+        <span class="season-label">Select Season:</span>
+        <button class="season-btn">2021</button>
+        <button class="season-btn">2022</button>
+        <button class="season-btn">2023</button>
+        <button class="season-btn active">2024</button>
+        <button class="season-btn">2025</button>
+        <button class="season-btn">2026</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS ROW (4 CARDS) -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        
+        <!-- Stat Card 1 -->
+        <div class="stat-card">
+          <div class="stat-title">World Drivers' Champion</div>
+          <div class="stat-value">M. Verstappen</div>
+          <div class="stat-detail">
+            <span class="stat-pill">429 PTS</span> Red Bull Racing
+          </div>
+        </div>
+
+        <!-- Stat Card 2 -->
+        <div class="stat-card">
+          <div class="stat-title">Constructor Champion</div>
+          <div class="stat-value">McLaren F1</div>
+          <div class="stat-detail">
+            <span class="stat-pill">666 PTS</span> Mercedes-AMG Power
+          </div>
+        </div>
+
+        <!-- Stat Card 3 -->
+        <div class="stat-card">
+          <div class="stat-title">Total Races</div>
+          <div class="stat-value">24 Grands Prix</div>
+          <div class="stat-detail">
+            <span class="stat-pill">Completed</span> 6 Sprint Weekends
+          </div>
+        </div>
+
+        <!-- Stat Card 4 -->
+        <div class="stat-card">
+          <div class="stat-title">Most Wins</div>
+          <div class="stat-value">9 Wins</div>
+          <div class="stat-detail">
+            <span class="stat-pill">Verstappen</span> 37.5% Win Ratio
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DRIVER GRID SECTION -->
+  <section class="grid-section" id="drivers">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>Driver Lineup</h2>
+          <p>Official 2024 grid classification & driver standings</p>
+        </div>
+      </div>
+
+      <div class="driver-grid">
+
+        <!-- Driver 1: Verstappen -->
+        <div class="driver-card">
+          <span class="driver-number">1</span>
+          <div class="driver-avatar-wrapper">
+            <div class="driver-avatar">
+              <!-- Stylized Helmet / Profile SVG Placeholder -->
+              <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1l.8-2.1A7 7 0 0 1 5 11a7 7 0 0 1 7-7 7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.1l.9 2A9 9 0 0 0 21 11a9 9 0 0 0-9-9zm-1 8h2v5h-2v-5zm0-3h2v2h-2V7z"/></svg>
+            </div>
+          </div>
+          <div class="driver-info">
+            <div class="driver-name"><span>Max</span>Verstappen</div>
+            <div class="driver-team">
+              <span class="team-badge-indicator" style="background-color: #3671C6;"></span>
+              Red Bull Racing
+            </div>
+          </div>
+          <div class="card-footer-stats">
+            <div class="card-footer-item">
+              <span>Pos</span>
+              <span>1st</span>
+            </div>
+            <div class="card-footer-item">
+              <span>Podiums</span>
+              <span>14</span>
+            </div>
+            <div class="card-footer-item">
+              <span>PTS</span>
+              <span>429</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Driver 2: Norris -->
+        <div class="driver-card">
+          <span class="driver-number">4</span>
+          <div class="driver-avatar-wrapper">
+            <div class="driver-avatar">
+              <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1l.8-2.1A7 7 0 0 1 5 11a7 7 0 0 1 7-7 7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.1l.9 2A9 9 0 0 0 21 11a9 9 0 0 0-9-9zm-1 8h2v5h-2v-5zm0-3h2v2h-2V7z"/></svg>
+            </div>
+          </div>
+          <div class="driver-info">
+            <div class="driver-name"><span>Lando</span>Norris</div>
+            <div class="driver-team">
+              <span class="team-badge-indicator" style="background-color: #FF8000;"></span>
+              McLaren
+            </div>
+          </div>
+          <div class="card-footer-stats">
+            <div class="card-footer-item">
+              <span>Pos</span>
+              <span>2nd</span>
+            </div>
+            <div class="card-footer-item">
+              <span>Podiums</span>
+              <span>12</span>
+            </div>
+            <div class="card-footer-item">
+              <span>PTS</span>
+              <span>349</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Driver 3: Leclerc -->
+        <div class="driver-card">
+          <span class="driver-number">16</span>
+          <div class="driver-avatar-wrapper">
+            <div class="driver-avatar">
+              <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1l.8-2.1A7 7 0 0 1 5 11a7 7 0 0 1 7-7 7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.1l.9 2A9 9 0 0 0 21 11a9 9 0 0 0-9-9zm-1 8h2v5h-2v-5zm0-3h2v2h-2V7z"/></svg>
+            </div>
+          </div>
+          <div class="driver-info">
+            <div class="driver-name"><span>Charles</span>Leclerc</div>
+            <div class="driver-team">
+              <span class="team-badge-indicator" style="background-color: #E8002D;"></span>
+              Scuderia Ferrari
+            </div>
+          </div>
+          <div class="card-footer-stats">
+            <div class="card-footer-item">
+              <span>Pos</span>
+              <span>3rd</span>
+            </div>
+            <div class="card-footer-item">
+              <span>Podiums</span>
+              <span>11</span>
+            </div>
+            <div class="card-footer-item">
+              <span>PTS</span>
+              <span>341</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Driver 4: Piastri -->
+        <div class="driver-card">
+          <span class="driver-number">81</span>
+          <div class="driver-avatar-wrapper">
+            <div class="driver-avatar">
+              <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1l.8-2.1A7 7 0 0 1 5 11a7 7 0 0 1 7-7 7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.1l.9 2A9 9 0 0 0 21 11a9 9 0 0 0-9-9zm-1 8h2v5h-2v-5zm0-3h2v2h-2V7z"/></svg>
+            </div>
+          </div>
+          <div class="driver-info">
+            <div class="driver-name"><span>Oscar</span>Piastri</div>
+            <div class="driver-team">
+              <span class="team-badge-indicator" style="background-color: #FF8000;"></span>
+              McLaren
+            </div>
+          </div>
+          <div class="card-footer-stats">
+            <div class="card-footer-item">
+              <span>Pos</span>
+              <span>4th</span>
+            </div>
+            <div class="card-footer-item">
+              <span>Podiums</span>
+              <span>8</span>
+            </div>
+            <div class="card-footer-item">
+              <span>PTS</span>
+              <span>292</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Driver 5: Sainz -->
+        <div class="driver-card">
+          <span class="driver-number">55</span>
+          <div class="driver-avatar-wrapper">
+            <div class="driver-avatar">
+              <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1l.8-2.1A7 7 0 0 1 5 11a7 7 0 0 1 7-7 7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.1l.9 2A9 9 0 0 0 21 11a9 9 0 0 0-9-9zm-1 8h2v5h-2v-5zm0-3h2v2h-2V7z"/></svg>
+            </div>
+          </div>
+          <div class="driver-info">
+            <div class="driver-name"><span>Carlos</span>Sainz</div>
+            <div class="driver-team">
+              <span class="team-badge-indicator" style="background-color: #E8002D;"></span>
+              Scuderia Ferrari
+            </div>
+          </div>
+          <div class="card-footer-stats">
+            <div class="card-footer-item">
+              <span>Pos</span>
+              <span>5th</span>
+            </div>
+            <div class="card-footer-item">
+              <span>Podiums</span>
+              <span>7</span>
+            </div>
+            <div class="card-footer-item">
+              <span>PTS</span>
+              <span>244</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Driver 6: Russell -->
+        <div class="driver-card">
+          <span class="driver-number">63</span>
+          <div class="driver-avatar-wrapper">
+            <div class="driver-avatar">
+              <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1l.8-2.1A7 7 0 0 1 5 11a7 7 0 0 1 7-7 7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.1l.9 2A9 9 0 0 0 21 11a9 9 0 0 0-9-9zm-1 8h2v5h-2v-5zm0-3h2v2h-2V7z"/></svg>
+            </div>
+          </div>
+          <div class="driver-info">
+            <div class="driver-name"><span>George</span>Russell</div>
+            <div class="driver-team">
+              <span class="team-badge-indicator" style="background-color: #27F4D2;"></span>
+              Mercedes-AMG
+            </div>
+          </div>
+          <div class="card-footer-stats">
+            <div class="card-footer-item">
+              <span>Pos</span>
+              <span>6th</span>
+            </div>
+            <div class="card-footer-item">
+              <span>Podiums</span>
+              <span>4</span>
+            </div>
+            <div class="card-footer-item">
+              <span>PTS</span>
+              <span>228</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Driver 7: Hamilton -->
+        <div class="driver-card">
+          <span class="driver-number">44</span>
+          <div class="driver-avatar-wrapper">
+            <div class="driver-avatar">
+              <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1l.8-2.1A7 7 0 0 1 5 11a7 7 0 0 1 7-7 7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.1l.9 2A9 9 0 0 0 21 11a9 9 0 0 0-9-9zm-1 8h2v5h-2v-5zm0-3h2v2h-2V7z"/></svg>
+            </div>
+          </div>
+          <div class="driver-info">
+            <div class="driver-name"><span>Lewis</span>Hamilton</div>
+            <div class="driver-team">
+              <span class="team-badge-indicator" style="background-color: #27F4D2;"></span>
+              Mercedes-AMG
+            </div>
+          </div>
+          <div class="card-footer-stats">
+            <div class="card-footer-item">
+              <span>Pos</span>
+              <span>7th</span>
+            </div>
+            <div class="card-footer-item">
+              <span>Podiums</span>
+              <span>5</span>
+            </div>
+            <div class="card-footer-item">
+              <span>PTS</span>
+              <span>223</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Driver 8: Alonso -->
+        <div class="driver-card">
+          <span class="driver-number">14</span>
+          <div class="driver-avatar-wrapper">
+            <div class="driver-avatar">
+              <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1l.8-2.1A7 7 0 0 1 5 11a7 7 0 0 1 7-7 7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.1l.9 2A9 9 0 0 0 21 11a9 9 0 0 0-9-9zm-1 8h2v5h-2v-5zm0-3h2v2h-2V7z"/></svg>
+            </div>
+          </div>
+          <div class="driver-info">
+            <div class="driver-name"><span>Fernando</span>Alonso</div>
+            <div class="driver-team">
+              <span class="team-badge-indicator" style="background-color: #229971;"></span>
+              Aston Martin
+            </div>
+          </div>
+          <div class="card-footer-stats">
+            <div class="card-footer-item">
+              <span>Pos</span>
+              <span>8th</span>
+            </div>
+            <div class="card-footer-item">
+              <span>Podiums</span>
+              <span>2</span>
+            </div>
+            <div class="card-footer-item">
+              <span>PTS</span>
+              <span>68</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-content">
+      <div>
+        <p>&copy; 2025 F1 GridScope. Unofficial telemetry analysis & historical data explorer.</p>
+      </div>
+      <div>
+        <p>Formula 1 and F1 are trademarks of Formula One Licensing B.V.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Light script for year button interaction -->
+  <script>
+    document.querySelectorAll('.season-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.season-btn').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -13,3 +13,7 @@
 - Flask app running on port 5000
 - Connected to Jolpica F1 API
 - /api/seasons/2024 returns live F1 driver data ✅
+- - All seasons API endpoints working ✅
+- /api/seasons/2024/drivers ✅
+- /api/seasons/2024/races ✅  
+- /api/seasons/2024/driver-standings ✅
