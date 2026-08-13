@@ -239,6 +239,9 @@
   },
   "active": "203b93c015a4f610",
   "lastOpenFiles": [
+    "f1-gridscope/backend/app.py",
+    "f1-gridscope/backend",
+    "f1-gridscope",
     "venv/Lib/site-packages/flask/sansio/README.md",
     "Setup Log.md.md",
     "venv/Lib/site-packages/idna-3.18.dist-info/licenses/LICENSE.md",
@@ -251,8 +254,6 @@
     "venv/Lib/site-packages/pydantic_core/_pydantic_core.cp311-win_amd64.pyd",
     "venv/Lib/site-packages/pydantic_core/py.typed",
     "venv/Lib/site-packages/pydantic_core/core_schema.py",
-    "venv/Lib/site-packages/pydantic_core",
-    "venv/Lib/site-packages/itsdangerous/__pycache__/__init__.cpython-311.pyc",
     "venv/Lib/site-packages/werkzeug/debug/shared/more.png",
     "venv/Lib/site-packages/werkzeug/debug/shared/less.png",
     "venv/Lib/site-packages/werkzeug/debug/shared/ICON_LICENSE.md",
