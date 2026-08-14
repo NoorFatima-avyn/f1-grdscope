@@ -27,3 +27,9 @@ def get_driver_standings_route(year):
 def get_constructor_standings_route(year):
     data = get_constructor_standings(year)
     return jsonify(data)
+
+@seasons_bp.route('/<int:year>/headshots', methods=['GET'])
+def get_headshots(year):
+    from services.openf1 import get_driver_headshots
+    data = get_driver_headshots(year)
+    return jsonify(data)
