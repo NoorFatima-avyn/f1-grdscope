@@ -33,3 +33,17 @@ def get_headshots(year):
     from services.openf1 import get_driver_headshots
     data = get_driver_headshots(year)
     return jsonify(data)
+@seasons_bp.route('/sync/<int:year>', methods=['POST'])
+def sync_season(year):
+    from services.sync import sync_drivers, sync_races, sync_standings
+    sync_drivers(year)
+    sync_races(year)
+    sync_standings(year)
+    return jsonify({'message': f'Synced {year} successfully'})
+@seasons_bp.route('/sync/<int:year>', methods=['POST'])
+def sync_season(year):
+    from services.sync import sync_drivers, sync_races, sync_standings
+    sync_drivers(year)
+    sync_races(year)
+    sync_standings(year)
+    return jsonify({'message': f'Synced {year} successfully'})

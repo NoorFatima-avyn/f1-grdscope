@@ -20,3 +20,6 @@
 - - Homepage UI designed and implemented ✅
 - F1 red/black theme, driver cards, stats row, season selector
 - Ready to connect to real API data
+- - Driver headshots connected from OpenF1 API ✅
+- Real photos showing on driver cards
+- Some drivers missing photos (abbreviation mismatch - fix later)
