@@ -12,3 +12,27 @@ def get_winner(year, round_num):
 def get_races(year):
     data = get_season_races(year)
     return jsonify(data)
+
+@races_bp.route('/<int:year>/<int:round_num>/podium', methods=['GET'])
+def get_podium(year, round_num):
+    import requests
+    url = f"https://api.jolpi.ca/ergast/f1/{year}/{round_num}/results.json"
+    response = requests.get(url)
+    data = response.json()
+    races = data['MRData']['RaceTable']['Races']
+    if not races:
+        return jsonify([])
+    results = races[0].get('Results', [])[:3]
+    podium = []
+    for r in results:
+        podium.append({
+            'position': r['position'],
+            'driver': f"{r['Driver']['givenName']} {r['Driver']['familyName']}",
+            'driver_id': r['Driver']['driverId'],
+            'constructor': r['Constructor']['name'],
+            'points': r['points'],
+            'time': r.get('Time', {}).get('time', 'N/A'),
+            'grid': r.get('grid', '-'),
+            'laps': r.get('laps', '-')
+        })
+    return jsonify(podium)

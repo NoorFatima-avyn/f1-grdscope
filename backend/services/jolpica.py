@@ -47,3 +47,14 @@ def get_race_winner(year, round_num):
         'constructor': winner['Constructor']['name'],
         'time': winner.get('Time', {}).get('time', 'N/A')
     }
+def get_wikipedia_image(search_term):
+    import urllib.parse
+    encoded = urllib.parse.quote(search_term)
+    url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{encoded}"
+    try:
+        response = requests.get(url, timeout=5)
+        data = response.json()
+        return data.get('thumbnail', {}).get('source', '')
+    except:
+        return ''
+    

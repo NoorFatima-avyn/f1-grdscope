@@ -108,39 +108,63 @@
 
   <script src="js/cars-data.js"></script>
   <script>
-    function renderCars(year) {
-      const cars = carsData[year] || [];
-      const grid = document.getElementById('cars-grid');
-      document.getElementById('cars-heading').textContent = `${year} — The machines`;
+    async function renderCars(year) {
+    const cars = carsData[year] || [];
+    const grid = document.getElementById('cars-grid');
+    document.getElementById('cars-heading').textContent = `${year} — The machines`;
+    grid.innerHTML = '<p style="color:#555;padding:20px">Loading...</p>';
 
-      grid.innerHTML = cars.map(car => `
+    let images = {};
+    try {
+        const res = await fetch(`http://127.0.0.1:5000/api/teams/car-images/${year}`);
+        images = await res.json();
+    } catch(e) { console.log('Images failed', e); }
+
+    grid.innerHTML = cars.map(car => {
+        const img = images[car.team] || '';
+        const imgHtml = img
+            ? `<div class="car-image"><img src="${img}" alt="${car.car}" loading="lazy"></div>`
+            : `<div class="car-image-placeholder">🏎️ ${car.car}</div>`;
+
+        return `
         <div class="car-card" style="--team-color:${car.color}">
-          <div class="car-header">
-            <div>
-              <div class="car-name">${car.car}</div>
-              <div class="car-team">${car.team}</div>
+            ${imgHtml}
+            <div class="car-header">
+                <div>
+                    <div class="car-name">${car.car}</div>
+                    <div class="car-team">${car.team}</div>
+                </div>
+                <span class="car-tag">${year}</span>
             </div>
-            <span class="car-tag">${year}</span>
-          </div>
-          <div class="car-engine">
-            <label>Power Unit</label>
-            <span>${car.engine}</span>
-          </div>
-          <div class="car-aero">
-            <label>Aerodynamic Concept</label>
-            <p>${car.aero}</p>
-          </div>
-          <div class="car-innovations">
-            <label>Key Innovation</label>
-            <p>${car.innovations}</p>
-          </div>
-          <div class="section-label" style="margin-top:16px">Drivers</div>
-          <div class="car-drivers">
-            ${car.drivers.map(d => `<span class="driver-tag">${d}</span>`).join('')}
-          </div>
-        </div>
-      `).join('');
-    }
+            <div class="car-engine">
+                <label>Power Unit</label>
+                <span>${car.engine}</span>
+            </div>
+            <div class="car-aero">
+                <label>Aerodynamic Concept</label>
+                <p>${car.aero}</p>
+            </div>
+            <div class="car-innovations">
+                <label>Key Innovation</label>
+                <p>${car.innovations}</p>
+            </div>
+            <div class="section-label" style="margin-top:16px">Drivers</div>
+            <div class="car-drivers">
+                ${car.drivers.map(d => `<span class="driver-tag">${d}</span>`).join('')}
+            </div>
+        </div>`;
+    }).join('');
+}
+
+document.querySelectorAll('.year-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCars(parseInt(btn.dataset.year));
+    });
+});
+
+renderCars(2024);
 
     document.querySelectorAll('.year-btn').forEach(btn => {
       btn.addEventListener('click', () => {

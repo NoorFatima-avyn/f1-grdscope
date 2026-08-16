@@ -407,16 +407,33 @@
         }).join('');
 
         list.querySelectorAll('.race-row').forEach(row => {
-          row.addEventListener('click', () => {
-            list.querySelectorAll('.race-row').forEach(r => r.classList.remove('selected'));
-            row.classList.add('selected');
-            const name = row.dataset.name.replace(' Grand Prix','');
-            document.getElementById('route-title').innerHTML = `${name} <span>Grand Prix</span>`;
-            document.getElementById('route-copy').textContent = `${row.dataset.circuit} · ${row.dataset.date}.`;
-            document.getElementById('route-meta').innerHTML = `<b>ROUND ${row.querySelector('.race-round').textContent}</b> / SELECTED`;
-          });
-        });
-      }
+          row.addEventListener('click', async () => {
+    list.querySelectorAll('.race-row').forEach(r => r.classList.remove('selected'));
+    row.classList.add('selected');
+    const name = row.dataset.name.replace(' Grand Prix','');
+    const round = parseInt(row.querySelector('.race-round').textContent);
+    document.getElementById('route-title').innerHTML = `${name} <span>Grand Prix</span>`;
+    document.getElementById('route-copy').textContent = `${row.dataset.circuit} · ${row.dataset.date}. Loading result...`;
+    document.getElementById('route-meta').innerHTML = `<b>ROUND ${String(round).padStart(2,'0')}</b> / LOADING`;
+
+    try {
+        const res = await fetch(`${API}/races/${currentYear}/${round}/podium`);
+        const podium = await res.json();
+        if (podium.length > 0) {
+            const medals = ['🥇','🥈','🥉'];
+            const podiumHtml = podium.map((p,i) => `
+                <div style="margin-top:10px;padding:8px 10px;background:rgba(255,255,255,.04);border-left:2px solid ${i===0?'#E8002D':'#444'}">
+                    <span style="color:var(--red);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700">${medals[i]} P${p.position}</span>
+                    <span style="color:#e0e0e0;font-size:12px;margin-left:8px;font-weight:600">${p.driver}</span>
+                    <span style="color:#666;font-size:11px;display:block;margin-left:20px">${p.constructor} · ${p.points} pts</span>
+                </div>`).join('');
+            document.getElementById('route-copy').innerHTML = `<strong style="color:#e0e0e0">${row.dataset.circuit}</strong><br><small style="color:#666">${row.dataset.date}</small>${podiumHtml}`;
+            document.getElementById('route-meta').innerHTML = `<b>ROUND ${String(round).padStart(2,'0')}</b> / RESULT LOADED`;
+        }
+    } catch(e) {
+        document.getElementById('route-copy').textContent = `${row.dataset.circuit} · ${row.dataset.date}.`;
+    }
+});
 
       async function renderDriverGrid(year) {
         const grid = document.getElementById('driver-grid');
