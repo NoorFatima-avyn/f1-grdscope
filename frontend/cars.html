@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>F1 GridScope — Cars</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--black:#0a0a0a;--red:#e8002d;--white:#f7f7f7;--muted:#949499;--line:rgba(255,255,255,.14);--ease:cubic-bezier(.23,1,.32,1);}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;background:var(--black);}
+    body{background:var(--black);color:var(--white);font-family:Inter,sans-serif;}
+    a{color:inherit;text-decoration:none;}
+    .page-width{width:min(1200px,calc(100% - 72px));margin-inline:auto;}
+    .site-header{position:sticky;top:0;z-index:30;display:flex;align-items:center;min-height:72px;padding:0 40px;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(10,10,10,.95);backdrop-filter:blur(12px);}
+    .brand{display:inline-flex;align-items:center;gap:10px;color:#fff;font-family:"Barlow Condensed",sans-serif;font-size:25px;font-style:italic;font-weight:700;}
+    .brand-badge{background:var(--red);color:#fff;padding:2px 8px;font-size:14px;border-radius:3px;transform:skew(-8deg);display:inline-block;}
+    .desktop-nav{display:flex;height:72px;align-items:stretch;gap:34px;margin-left:auto;}
+    .desktop-nav a{display:flex;align-items:center;color:#bababe;font-size:12px;font-weight:600;text-decoration:none;transition:color .2s;position:relative;}
+    .desktop-nav a:hover,.desktop-nav a.active{color:white;}
+    .desktop-nav a.active:after{content:"";position:absolute;inset:auto 0 0;height:3px;background:var(--red);}
+    .page-hero{padding:72px 0 48px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#0a0a0a,#0d0d0f);}
+    .page-hero .eyebrow{display:flex;align-items:center;gap:10px;color:var(--red);font-size:10px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;margin-bottom:14px;}
+    .page-hero .eyebrow:before{content:"";width:30px;height:2px;background:var(--red);}
+    .page-hero h1{font-family:"Barlow Condensed",sans-serif;font-size:clamp(52px,7vw,96px);font-style:italic;font-weight:800;letter-spacing:-.06em;line-height:.82;text-transform:uppercase;}
+    .page-hero h1 span{color:#888;}
+    .page-hero p{max-width:520px;margin-top:18px;color:#86868b;font-size:13px;line-height:1.65;}
+    .season-bar{display:flex;align-items:center;gap:12px;padding:32px 0;border-bottom:1px solid var(--line);}
+    .season-bar-label{color:#77777d;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+    .year-btns{display:flex;gap:8px;flex-wrap:wrap;}
+    .year-btn{padding:8px 20px;border:1px solid rgba(255,255,255,.2);background:#111;color:#c0c0c4;font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;}
+    .year-btn:hover{border-color:var(--red);}
+    .year-btn.active{background:var(--red);border-color:var(--red);color:#fff;}
+    .cars-section{padding:64px 0 100px;}
+    .cars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:32px;}
+    .car-card{position:relative;padding:28px;border:1px solid rgba(255,255,255,.12);border-top:3px solid var(--team-color,var(--red));background:linear-gradient(145deg,#16161a,#101012);overflow:hidden;transition:transform .2s,box-shadow .2s;}
+    .car-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.4);}
+    .car-card:after{content:"";position:absolute;right:-40px;bottom:-40px;width:140px;height:140px;border:1px solid rgba(255,255,255,.04);transform:rotate(45deg);}
+    .car-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
+    .car-name{font-family:"Barlow Condensed",sans-serif;font-size:48px;font-weight:800;font-style:italic;letter-spacing:-.05em;line-height:.85;color:var(--team-color,var(--red));}
+    .car-team{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-top:6px;}
+    .car-tag{padding:4px 10px;border:1px solid var(--team-color,var(--red));color:var(--team-color,var(--red));font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+    .car-engine{margin-bottom:16px;padding:12px 14px;border-left:3px solid var(--team-color,var(--red));background:rgba(255,255,255,.04);}
+    .car-engine label{display:block;color:#666;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;}
+    .car-engine span{color:#e0e0e0;font-size:13px;font-weight:600;}
+    .car-aero{margin-bottom:14px;}
+    .car-aero label{display:block;color:#666;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+    .car-aero p{color:#a0a0a5;font-size:12px;line-height:1.6;}
+    .car-innovations{margin-bottom:18px;}
+    .car-innovations label{display:block;color:#666;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+    .car-innovations p{color:#c0c0c5;font-size:12px;line-height:1.6;font-style:italic;}
+    .car-drivers{display:flex;gap:8px;flex-wrap:wrap;}
+    .driver-tag{padding:5px 12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:#c0c0c4;font-size:11px;font-weight:600;}
+    .section-label{display:flex;align-items:center;gap:11px;color:#a2a2a7;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;}
+    .section-label:before{content:"";width:31px;height:2px;background:var(--red);}
+    .section-label b{color:var(--red);}
+    .cars-heading{font-family:"Barlow Condensed",sans-serif;font-size:clamp(38px,4vw,54px);font-weight:700;letter-spacing:-.04em;text-transform:uppercase;}
+    footer{border-top:1px solid var(--line);padding:32px 0;color:#717176;font-size:10px;}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;}
+    .footer-brand{color:#e5e5e7;font-family:"Barlow Condensed",sans-serif;font-size:18px;font-style:italic;font-weight:700;}
+    @media(max-width:768px){.cars-grid{grid-template-columns:1fr}.desktop-nav{display:none}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge">F1</span> GridScope</a>
+    <nav class="desktop-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#archive">Seasons</a>
+      <a href="index.html#drivers">Drivers</a>
+      <a class="active" href="cars.html">Cars</a>
+    </nav>
+  </header>
+
+  <section class="page-hero">
+    <div class="page-width">
+      <div class="eyebrow">F1 GridScope / Machine Archive</div>
+      <h1>The <span>machines</span><br>behind the glory</h1>
+      <p>Every championship car from 2021 to 2025 — aerodynamic concepts, power units, technical innovations, and the engineers who built them.</p>
+    </div>
+  </section>
+
+  <div class="season-bar page-width">
+    <span class="season-bar-label">Select year:</span>
+    <div class="year-btns">
+      <button class="year-btn active" data-year="2024">2024</button>
+      <button class="year-btn" data-year="2023">2023</button>
+      <button class="year-btn" data-year="2022">2022</button>
+      <button class="year-btn" data-year="2021">2021</button>
+      <button class="year-btn" data-year="2025">2025</button>
+    </div>
+  </div>
+
+  <section class="cars-section">
+    <div class="page-width">
+      <div class="section-label"><b>02</b> Machine archive</div>
+      <h2 class="cars-heading" id="cars-heading">2024 — The machines</h2>
+      <div class="cars-grid" id="cars-grid"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="page-width footer-inner">
+      <span class="footer-brand">🏎️ F1 GridScope</span>
+      <span>Every car. Every season. Every detail.</span>
+    </div>
+  </footer>
+
+  <script src="js/cars-data.js"></script>
+  <script>
+    function renderCars(year) {
+      const cars = carsData[year] || [];
+      const grid = document.getElementById('cars-grid');
+      document.getElementById('cars-heading').textContent = `${year} — The machines`;
+
+      grid.innerHTML = cars.map(car => `
+        <div class="car-card" style="--team-color:${car.color}">
+          <div class="car-header">
+            <div>
+              <div class="car-name">${car.car}</div>
+              <div class="car-team">${car.team}</div>
+            </div>
+            <span class="car-tag">${year}</span>
+          </div>
+          <div class="car-engine">
+            <label>Power Unit</label>
+            <span>${car.engine}</span>
+          </div>
+          <div class="car-aero">
+            <label>Aerodynamic Concept</label>
+            <p>${car.aero}</p>
+          </div>
+          <div class="car-innovations">
+            <label>Key Innovation</label>
+            <p>${car.innovations}</p>
+          </div>
+          <div class="section-label" style="margin-top:16px">Drivers</div>
+          <div class="car-drivers">
+            ${car.drivers.map(d => `<span class="driver-tag">${d}</span>`).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.querySelectorAll('.year-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCars(parseInt(btn.dataset.year));
+      });
+    });
+
+    renderCars(2024);
+  </script>
+</body>
+</html>

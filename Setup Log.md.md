@@ -23,3 +23,9 @@
 - - Driver headshots connected from OpenF1 API ✅
 - Real photos showing on driver cards
 - Some drivers missing photos (abbreviation mismatch - fix later)
+
+
+## August 15 2026
+- AI chatbox connected using Gemini API ✅
+- Firebase Firestore database synced with all seasons ✅
+- Driver photos loading from OpenF1 ✅

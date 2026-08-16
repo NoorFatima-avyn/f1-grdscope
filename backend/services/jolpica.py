@@ -31,3 +31,19 @@ def get_race_results(year, round_num):
     response = requests.get(url)
     data = response.json()
     return data['MRData']['RaceTable']['Races']
+def get_race_winner(year, round_num):
+    url = f"{BASE_URL}/{year}/{round_num}/results.json"
+    response = requests.get(url)
+    data = response.json()
+    races = data['MRData']['RaceTable']['Races']
+    if not races:
+        return None
+    results = races[0].get('Results', [])
+    if not results:
+        return None
+    winner = results[0]
+    return {
+        'driver': f"{winner['Driver']['givenName']} {winner['Driver']['familyName']}",
+        'constructor': winner['Constructor']['name'],
+        'time': winner.get('Time', {}).get('time', 'N/A')
+    }

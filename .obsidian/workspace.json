@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PROJECT OVERVIEW.md.md",
+                "file": "Setup Log.md.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PROJECT OVERVIEW.md"
+              "title": "Setup Log.md"
             }
           }
         ],
@@ -253,17 +253,21 @@
   },
   "active": "482273f461a883c8",
   "lastOpenFiles": [
-    "venv/Lib/site-packages/googleapis_common_protos-1.75.0.dist-info/licenses/LICENSE",
-    "venv/Lib/site-packages/googleapis_common_protos-1.75.0.dist-info/WHEEL",
-    "venv/Lib/site-packages/googleapis_common_protos-1.75.0.dist-info/RECORD",
-    "venv/Lib/site-packages/googleapis_common_protos-1.75.0.dist-info/top_level.txt",
-    "venv/Lib/site-packages/googleapis_common_protos-1.75.0.dist-info/METADATA",
-    "venv/Lib/site-packages/googleapis_common_protos-1.75.0.dist-info/licenses",
-    "venv/Lib/site-packages/googleapis_common_protos-1.75.0.dist-info/INSTALLER",
-    "venv/Lib/site-packages/googleapis_common_protos-1.75.0.dist-info",
-    "venv/Lib/site-packages/google_genai-2.18.1.dist-info/REQUESTED",
-    "venv/Lib/site-packages/google_genai-2.18.1.dist-info/INSTALLER",
-    "venv/Lib/site-packages/google/genai/__pycache__/version.cpython-311.pyc",
+    "frontend/js/cars-data.js",
+    "frontend/js/cars.data.js",
+    "frontend/cars.html",
+    "venv/Lib/site-packages/google/genai/__pycache__/_tokens_converters.cpython-311.pyc",
+    "venv/Lib/site-packages/google/genai/__pycache__/operations.cpython-311.pyc",
+    "venv/Lib/site-packages/google/genai/__pycache__/live_music.cpython-311.pyc",
+    "venv/Lib/site-packages/google/genai/__pycache__/_live_converters.cpython-311.pyc",
+    "venv/Lib/site-packages/google/genai/__pycache__/live.cpython-311.pyc",
+    "venv/Lib/site-packages/google/genai/__pycache__/files.cpython-311.pyc",
+    "venv/Lib/site-packages/google/genai/__pycache__/documents.cpython-311.pyc",
+    "venv/Lib/site-packages/google/genai/__pycache__/file_search_stores.cpython-311.pyc",
+    "frontend/max-trophy.jpg",
+    "frontend/Max-trophy.jpg",
+    "frontend/download (1).jpg",
+    "PROJECT OVERVIEW.md.md",
     "venv/Lib/site-packages/pyparsing/ai/best_practices.md",
     "secrets.md",
     "Untitled.canvas",
@@ -279,7 +283,6 @@
     "venv/Lib/site-packages/httpcore-1.0.9.dist-info/licenses/LICENSE.md",
     "venv/Lib/site-packages/anthropic/lib/google_cloud/README.md",
     "venv/Lib/site-packages/anthropic/lib/foundry.md",
-    "Techstack.md.md",
-    "PROJECT OVERVIEW.md.md"
+    "Techstack.md.md"
   ]
 }
