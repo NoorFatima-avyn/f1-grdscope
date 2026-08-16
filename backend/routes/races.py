@@ -36,3 +36,22 @@ def get_podium(year, round_num):
             'laps': r.get('laps', '-')
         })
     return jsonify(podium)
+@races_bp.route('/<int:year>/results', methods=['GET'])
+def get_all_results(year):
+    races = get_season_races(year)
+    results = []
+    for race in races:
+        results.append({
+            'round': race.get('round'),
+            'raceName': race.get('raceName'),
+            'circuit': race.get('Circuit', {}).get('circuitName'),
+            'country': race.get('Circuit', {}).get('Location', {}).get('country'),
+            'date': race.get('date'),
+            'circuitId': race.get('Circuit', {}).get('circuitId')
+        })
+    return jsonify(results)
+@races_bp.route('/circuit/<circuit_id>/winners', methods=['GET'])
+def get_circuit_winners_route(circuit_id):
+    from services.jolpica import get_circuit_winners
+    data = get_circuit_winners(circuit_id)
+    return jsonify(data)   

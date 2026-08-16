@@ -253,6 +253,8 @@
   },
   "active": "482273f461a883c8",
   "lastOpenFiles": [
+    "frontend/tracks.html",
+    "frontend/index (1).html",
     "frontend/js/cars-data.js",
     "frontend/js/cars.data.js",
     "frontend/cars.html",
@@ -262,8 +264,6 @@
     "venv/Lib/site-packages/google/genai/__pycache__/_live_converters.cpython-311.pyc",
     "venv/Lib/site-packages/google/genai/__pycache__/live.cpython-311.pyc",
     "venv/Lib/site-packages/google/genai/__pycache__/files.cpython-311.pyc",
-    "venv/Lib/site-packages/google/genai/__pycache__/documents.cpython-311.pyc",
-    "venv/Lib/site-packages/google/genai/__pycache__/file_search_stores.cpython-311.pyc",
     "frontend/max-trophy.jpg",
     "frontend/Max-trophy.jpg",
     "frontend/download (1).jpg",

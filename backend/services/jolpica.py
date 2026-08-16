@@ -57,4 +57,23 @@ def get_wikipedia_image(search_term):
         return data.get('thumbnail', {}).get('source', '')
     except:
         return ''
-    
+def get_circuit_winners(circuit_id):
+    winners = []
+    for year in [2021, 2022, 2023, 2024, 2025]:
+        url = f"{BASE_URL}/{year}/circuits/{circuit_id}/results/1.json"
+        try:
+            response = requests.get(url, timeout=5)
+            data = response.json()
+            races = data['MRData']['RaceTable']['Races']
+            if races:
+                r = races[0]
+                result = r['Results'][0]
+                winners.append({
+                    'year': year,
+                    'driver': f"{result['Driver']['givenName']} {result['Driver']['familyName']}",
+                    'constructor': result['Constructor']['name'],
+                    'raceName': r['raceName']
+                })
+        except:
+            continue
+    return winners   
