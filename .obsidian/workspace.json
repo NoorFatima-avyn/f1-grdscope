@@ -253,6 +253,8 @@
   },
   "active": "482273f461a883c8",
   "lastOpenFiles": [
+    "backend/routes/__pycache__/predictions.cpython-311.pyc",
+    "backend/routes/predictions.py",
     "backend/routes/prediction.py",
     "backend/routes/prediction",
     "frontend/tracks.html",
@@ -262,8 +264,6 @@
     "frontend/cars.html",
     "venv/Lib/site-packages/google/genai/__pycache__/_tokens_converters.cpython-311.pyc",
     "venv/Lib/site-packages/google/genai/__pycache__/operations.cpython-311.pyc",
-    "venv/Lib/site-packages/google/genai/__pycache__/live_music.cpython-311.pyc",
-    "venv/Lib/site-packages/google/genai/__pycache__/_live_converters.cpython-311.pyc",
     "frontend/max-trophy.jpg",
     "frontend/Max-trophy.jpg",
     "frontend/download (1).jpg",

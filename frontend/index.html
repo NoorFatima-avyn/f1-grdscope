@@ -395,7 +395,56 @@
         'Williams':'#37BEDD','RB':'#6692FF','Kick Sauber':'#52E252',
         'Haas':'#B6BABD','Racing Bulls':'#6692FF','Sauber':'#52E252'
       };
+      // RACE PREDICTOR
+      async function loadPredictorRaces(year) {
+    const select = document.getElementById('pred-race');
+    select.innerHTML = '<option>Loading...</option>';
+    try {
+        const res = await fetch(`${API}/seasons/${year}/races`);
+        const races = await res.json();
+        select.innerHTML = races.map(r =>
+            `<option value="${r.round}">${String(parseInt(r.round)).padStart(2,'0')}. ${r.raceName}</option>`
+        ).join('');
+    } catch(e) {
+        select.innerHTML = '<option>Failed to load</option>';
+    }
+}
 
+    document.getElementById('pred-year').addEventListener('change', function() {
+    loadPredictorRaces(parseInt(this.value));
+    });
+
+    document.getElementById('pred-btn').addEventListener('click', async () => {
+    const year = document.getElementById('pred-year').value;
+    const round = document.getElementById('pred-race').value;
+    const result = document.getElementById('pred-result');
+    const btn = document.getElementById('pred-btn');
+
+    btn.disabled = true;
+    btn.textContent = '⏳ Predicting...';
+    result.innerHTML = '<div class="pred-loading">🤖 Gemini AI is analyzing the race... this takes a few seconds</div>';
+
+    try {
+        const res = await fetch(`${API}/predictions/race/${year}/${round}`);
+        const data = await res.json();
+
+        if (data.error) {
+            result.innerHTML = `<div class="pred-loading">Error: ${data.error}</div>`;
+        } else {
+            result.innerHTML = `
+                <div class="pred-race-title">${data.race_name} ${data.year}</div>
+                <div class="pred-content">${data.prediction.replace(/\n/g, '<br>')}</div>
+            `;
+        }
+    } catch(e) {
+        result.innerHTML = '<div class="pred-loading">Failed to get prediction. Make sure Flask is running.</div>';
+    }
+
+    btn.disabled = false;
+    btn.textContent = '🤖 Generate Prediction';
+    });
+
+      loadPredictorRaces(2026);
       async function loadSeasonData(year) {
         try {
           const [sRes, rRes] = await Promise.all([
