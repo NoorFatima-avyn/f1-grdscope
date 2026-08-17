@@ -9,10 +9,18 @@ def get_season_drivers(year):
     return data['MRData']['DriverTable']['Drivers']
 
 def get_season_races(year):
-    url = f"{BASE_URL}/{year}/races.json"
-    response = requests.get(url)
-    data = response.json()
-    return data['MRData']['RaceTable']['Races']
+    import time
+    url = f"{BASE_URL}/{year}/races.json?limit=30"
+    try:
+        time.sleep(0.5)
+        response = requests.get(url, timeout=10)
+        if response.status_code != 200 or not response.text.strip():
+            return []
+        data = response.json()
+        return data['MRData']['RaceTable']['Races']
+    except Exception as e:
+        print(f"Error fetching races for {year}: {e}")
+        return []
 
 def get_driver_standings(year):
     url = f"{BASE_URL}/{year}/driverStandings.json"
@@ -49,20 +57,32 @@ def get_race_winner(year, round_num):
     }
 def get_wikipedia_image(search_term):
     import urllib.parse
-    encoded = urllib.parse.quote(search_term)
-    url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{encoded}"
+    url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{search_term}"
     try:
-        response = requests.get(url, timeout=5)
+        response = requests.get(url, timeout=8, headers={'User-Agent': 'F1GridScope/1.0'})
+        if response.status_code != 200:
+            return ''
         data = response.json()
-        return data.get('thumbnail', {}).get('source', '')
-    except:
+        thumbnail = data.get('thumbnail', {})
+        if thumbnail:
+            return thumbnail.get('source', '')
+        originalimage = data.get('originalimage', {})
+        if originalimage:
+            return originalimage.get('source', '')
+        return ''
+    except Exception as e:
+        print(f"Wikipedia error for {search_term}: {e}")
         return ''
 def get_circuit_winners(circuit_id):
+    import time
     winners = []
     for year in [2021, 2022, 2023, 2024, 2025]:
         url = f"{BASE_URL}/{year}/circuits/{circuit_id}/results/1.json"
         try:
-            response = requests.get(url, timeout=5)
+            time.sleep(0.3)
+            response = requests.get(url, timeout=8)
+            if response.status_code != 200 or not response.text.strip():
+                continue
             data = response.json()
             races = data['MRData']['RaceTable']['Races']
             if races:
@@ -76,4 +96,4 @@ def get_circuit_winners(circuit_id):
                 })
         except:
             continue
-    return winners   
+    return winners

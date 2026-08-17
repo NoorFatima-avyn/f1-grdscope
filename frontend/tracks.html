@@ -123,11 +123,9 @@
       const grid = document.getElementById('tracks-grid');
       document.getElementById('tracks-heading').textContent = `${year} — All circuits`;
       grid.innerHTML = '<p style="color:#444;padding:20px">Loading circuits...</p>';
-
       try {
         const res = await fetch(`${API}/races/${year}/results`);
         const races = await res.json();
-
         grid.innerHTML = races.map(r => {
           const flag = countryFlags[r.country] || '🏁';
           const date = new Date(r.date);
@@ -145,16 +143,36 @@
           </div>`;
         }).join('');
 
-        // auto load winners for first 6 cards
         const cards = grid.querySelectorAll('.track-card');
         cards.forEach((card, i) => {
-          if (i < 6) loadWinners(card.dataset.circuit);
-          card.addEventListener('click', () => loadWinners(card.dataset.circuit));
+          if (i < 6) {
+            loadWinners(card.dataset.circuit);
+            loadCircuitImage(card.dataset.circuit);
+          }
+          card.addEventListener('click', () => {
+            loadWinners(card.dataset.circuit);
+            loadCircuitImage(card.dataset.circuit);
+          });
         });
-
       } catch(e) {
         grid.innerHTML = '<p style="color:#444;padding:20px">Failed to load. Make sure Flask is running.</p>';
       }
+    }
+
+    async function loadCircuitImage(circuitId) {
+      try {
+        const res = await fetch(`${API}/races/circuit/${circuitId}/image`);
+        const data = await res.json();
+        if (data.image) {
+          const card = document.querySelector(`[data-circuit="${circuitId}"]`);
+          if (card) {
+            const img = document.createElement('img');
+            img.src = data.image;
+            img.style.cssText = 'width:100%;height:140px;object-fit:cover;border-radius:4px;margin-bottom:16px;filter:brightness(0.9)';
+            card.insertBefore(img, card.firstChild);
+          }
+        }
+      } catch(e) {}
     }
 
     async function loadWinners(circuitId) {
@@ -162,16 +180,13 @@
       if (!container || container.dataset.loaded === 'true') return;
       container.dataset.loaded = 'true';
       container.innerHTML = '<div class="winners-loading">Loading...</div>';
-
       try {
         const res = await fetch(`${API}/races/circuit/${circuitId}/winners`);
         const winners = await res.json();
-
         if (winners.length === 0) {
           container.innerHTML = '<div class="winners-loading">No data available</div>';
           return;
         }
-
         container.innerHTML = winners.map(w => `
           <div class="winner-row">
             <span class="winner-year">${w.year}</span>
@@ -195,6 +210,6 @@
     });
 
     loadTracks(2024);
-  </script>
+</script>
 </body>
 </html>

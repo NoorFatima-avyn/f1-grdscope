@@ -54,4 +54,38 @@ def get_all_results(year):
 def get_circuit_winners_route(circuit_id):
     from services.jolpica import get_circuit_winners
     data = get_circuit_winners(circuit_id)
-    return jsonify(data)   
+    return jsonify(data) 
+@races_bp.route('/circuit/<circuit_id>/image', methods=['GET'])
+def get_circuit_image(circuit_id):
+    from services.jolpica import get_wikipedia_image
+    circuit_wiki_names = {
+        'bahrain': 'Bahrain_International_Circuit',
+        'jeddah': 'Jeddah_Street_Circuit',
+        'albert_park': 'Albert_Park_Circuit',
+        'suzuka': 'Suzuka_International_Racing_Course',
+        'shanghai': 'Shanghai_International_Circuit',
+        'miami': 'Miami_International_Autodrome',
+        'imola': 'Autodromo_Enzo_e_Dino_Ferrari',
+        'monaco': 'Circuit_de_Monaco',
+        'catalunya': 'Circuit_de_Barcelona-Catalunya',
+        'villeneuve': 'Circuit_Gilles_Villeneuve',
+        'red_bull_ring': 'Red_Bull_Ring',
+        'silverstone': 'Silverstone_Circuit',
+        'hungaroring': 'Hungaroring',
+        'spa': 'Circuit_de_Spa-Francorchamps',
+        'zandvoort': 'Circuit_Zandvoort',
+        'monza': 'Autodromo_Nazionale_Monza',
+        'baku': 'Baku_City_Circuit',
+        'marina_bay': 'Marina_Bay_Street_Circuit',
+        'americas': 'Circuit_of_the_Americas',
+        'rodriguez': 'Autodromo_Hermanos_Rodriguez',
+        'interlagos': 'Autodromo_Jose_Carlos_Pace',
+        'vegas': 'Las_Vegas_Street_Circuit',
+        'losail': 'Losail_International_Circuit',
+        'yas_marina': 'Yas_Marina_Circuit'
+    }
+    wiki_name = circuit_wiki_names.get(circuit_id, '')
+    if not wiki_name:
+        return jsonify({'image': ''})
+    img = get_wikipedia_image(wiki_name)
+    return jsonify({'image': img})  
