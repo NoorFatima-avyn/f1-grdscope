@@ -7,6 +7,7 @@ from routes.drivers import drivers_bp
 from routes.races import races_bp
 from routes.teams import teams_bp
 from routes.chat import chat_bp
+from routes.predictions import predictions_bp
 
 def create_app():
     app = Flask(__name__, static_folder='../frontend', static_url_path='')
@@ -17,6 +18,7 @@ def create_app():
     app.register_blueprint(races_bp, url_prefix='/api/races')
     app.register_blueprint(teams_bp, url_prefix='/api/teams')
     app.register_blueprint(chat_bp, url_prefix='/api/chat')
+    app.register_blueprint(predictions_bp, url_prefix='/api/predictions')
 
     @app.route('/')
     def index():
@@ -31,4 +33,5 @@ def create_app():
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True)
-    
+
+
