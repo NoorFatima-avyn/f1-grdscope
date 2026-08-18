@@ -9,7 +9,9 @@ from routes.chat import chat_bp
 from routes.predictions import predictions_bp
 
 def create_app():
-    app = Flask(__name__, static_folder='../frontend', static_url_path='')
+    import os
+frontend_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'frontend')
+app = Flask(__name__, static_folder=frontend_path, static_url_path='')
     CORS(app)
 
     app.register_blueprint(seasons_bp, url_prefix='/api/seasons')
