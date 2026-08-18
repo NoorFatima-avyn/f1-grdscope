@@ -25,20 +25,6 @@
             "id": "491c5a7bf663dd00",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Techstack.md.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Techstack.md"
-            }
-          },
-          {
-            "id": "203b93c015a4f610",
-            "type": "leaf",
-            "state": {
               "type": "empty",
               "state": {},
               "icon": "lucide-file",
@@ -46,27 +32,7 @@
             }
           }
         ],
-        "currentTab": 2
-      },
-      {
-        "id": "fdaebd07b50de085",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "ebded65762b714dc",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "venv/Lib/site-packages/flask/sansio/README.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "README"
-            }
-          }
-        ]
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -233,8 +199,11 @@
       "bases:Create new base": false
     }
   },
-  "active": "203b93c015a4f610",
+  "active": "3ebdcb880f28513b",
   "lastOpenFiles": [
+    "README.md",
+    "readme",
+    "New folder",
     "backend/Procfile",
     "venv/Lib/site-packages/gunicorn-26.0.0.dist-info/RECORDfw6ggfxv.tmp",
     "venv/Lib/site-packages/gunicorn-26.0.0.dist-info/REQUESTED",
@@ -243,9 +212,6 @@
     "venv/Scripts/gunicorn.exe",
     "venv/Lib/site-packages/gunicorn/workers/__pycache__/workertmp.cpython-311.pyc",
     "venv/Lib/site-packages/gunicorn/workers/__pycache__/sync.cpython-311.pyc",
-    "venv/Lib/site-packages/gunicorn/workers/__pycache__/gtornado.cpython-311.pyc",
-    "venv/Lib/site-packages/gunicorn/workers/__pycache__/gthread.cpython-311.pyc",
-    "venv/Lib/site-packages/gunicorn/workers/__pycache__/ggevent.cpython-311.pyc",
     "PROJECT OVERVIEW.md",
     "Setup Log.md.md",
     "Setup Log.md",
