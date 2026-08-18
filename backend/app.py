@@ -29,7 +29,15 @@ def create_app():
     @app.route('/<path:path>')
     def serve_static(path):
         return send_from_directory(frontend_path, path)
-
+        @app.route('/debug')
+    def debug():
+        return {
+            'frontend_path': frontend_path,
+            'exists': os.path.exists(frontend_path),
+            'files': os.listdir(frontend_path) if os.path.exists(frontend_path) else 'NOT FOUND',
+            'cwd': os.getcwd()
+        }
+    
     return app
 
 if __name__ == '__main__':
