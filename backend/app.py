@@ -1,5 +1,6 @@
 from flask import Flask, send_from_directory
 from flask_cors import CORS
+import os
 
 from routes.seasons import seasons_bp
 from routes.drivers import drivers_bp
@@ -8,10 +9,10 @@ from routes.teams import teams_bp
 from routes.chat import chat_bp
 from routes.predictions import predictions_bp
 
-def create_app():
-    import os
 frontend_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'frontend')
-app = Flask(__name__, static_folder=frontend_path, static_url_path='')
+
+def create_app():
+    app = Flask(__name__, static_folder=frontend_path, static_url_path='')
     CORS(app)
 
     app.register_blueprint(seasons_bp, url_prefix='/api/seasons')
@@ -23,11 +24,11 @@ app = Flask(__name__, static_folder=frontend_path, static_url_path='')
 
     @app.route('/')
     def index():
-        return send_from_directory('../frontend', 'index.html')
+        return send_from_directory(frontend_path, 'index.html')
 
     @app.route('/<path:path>')
     def serve_static(path):
-        return send_from_directory('../frontend', path)
+        return send_from_directory(frontend_path, path)
 
     return app
 
