@@ -253,6 +253,8 @@
   },
   "active": "482273f461a883c8",
   "lastOpenFiles": [
+    "frontend/circuit.html",
+    "frontend/circuits.html",
     "backend/routes/__pycache__/predictions.cpython-311.pyc",
     "backend/routes/predictions.py",
     "backend/routes/prediction.py",
@@ -262,8 +264,6 @@
     "frontend/js/cars-data.js",
     "frontend/js/cars.data.js",
     "frontend/cars.html",
-    "venv/Lib/site-packages/google/genai/__pycache__/_tokens_converters.cpython-311.pyc",
-    "venv/Lib/site-packages/google/genai/__pycache__/operations.cpython-311.pyc",
     "frontend/max-trophy.jpg",
     "frontend/Max-trophy.jpg",
     "frontend/download (1).jpg",

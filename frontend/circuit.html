@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>F1 GridScope — Circuit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--black:#0a0a0a;--red:#e8002d;--white:#f7f7f7;--line:rgba(255,255,255,.14);}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;background:var(--black);}
+    body{background:var(--black);color:var(--white);font-family:Inter,sans-serif;}
+    a{color:inherit;text-decoration:none;}
+    .page-width{width:min(1200px,calc(100% - 72px));margin-inline:auto;}
+    .site-header{position:sticky;top:0;z-index:30;display:flex;align-items:center;min-height:72px;padding:0 40px;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(10,10,10,.95);backdrop-filter:blur(12px);}
+    .brand{display:inline-flex;align-items:center;gap:10px;color:#fff;font-family:"Barlow Condensed",sans-serif;font-size:25px;font-style:italic;font-weight:700;}
+    .brand-badge{background:var(--red);color:#fff;padding:2px 8px;font-size:14px;border-radius:3px;transform:skew(-8deg);display:inline-block;}
+    .desktop-nav{display:flex;height:72px;align-items:stretch;gap:34px;margin-left:auto;}
+    .desktop-nav a{display:flex;align-items:center;color:#bababe;font-size:12px;font-weight:600;transition:color .2s;position:relative;}
+    .desktop-nav a:hover{color:white;}
+    .back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:1px solid rgba(255,255,255,.2);color:#bababe;font-size:12px;font-weight:600;margin:24px 0;transition:all .2s;}
+    .back-btn:hover{border-color:var(--red);color:white;}
+
+    /* HERO */
+    .circuit-hero{position:relative;min-height:420px;display:flex;align-items:flex-end;overflow:hidden;background:#050505;}
+    .circuit-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(0.4) saturate(0.8);}
+    .circuit-hero-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,5,5,1) 0%,rgba(5,5,5,.3) 60%,transparent 100%);}
+    .circuit-hero-content{position:relative;z-index:2;padding:60px 0 48px;}
+    .circuit-eyebrow{display:flex;align-items:center;gap:10px;color:var(--red);font-size:10px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;margin-bottom:16px;}
+    .circuit-eyebrow:before{content:"";width:30px;height:2px;background:var(--red);}
+    .circuit-hero h1{font-family:"Barlow Condensed",sans-serif;font-size:clamp(52px,7vw,96px);font-style:italic;font-weight:800;letter-spacing:-.06em;line-height:.82;text-transform:uppercase;}
+    .circuit-hero h1 span{color:#888;}
+    .circuit-meta-row{display:flex;align-items:center;gap:20px;margin-top:20px;flex-wrap:wrap;}
+    .circuit-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:#c0c0c4;font-size:11px;font-weight:600;}
+
+    /* MAP */
+    .circuit-map{padding:60px 0;background:#0d0d0f;border-bottom:1px solid var(--line);}
+    .circuit-map-inner{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;}
+    .circuit-image-box{position:relative;height:300px;border:1px solid rgba(255,255,255,.12);border-top:3px solid var(--red);overflow:hidden;background:#111;}
+    .circuit-image-box img{width:100%;height:100%;object-fit:cover;object-position:center;}
+    .circuit-image-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#111;color:#333;font-size:3rem;}
+    .circuit-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .info-card{padding:16px;border:1px solid rgba(255,255,255,.1);border-left:3px solid var(--red);background:#131315;}
+    .info-card label{display:block;color:#555;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+    .info-card span{color:#e0e0e0;font-size:15px;font-weight:600;font-family:"Barlow Condensed",sans-serif;}
+
+    /* WINNERS */
+    .circuit-winners{padding:64px 0 100px;background:#0a0a0a;}
+    .section-label{display:flex;align-items:center;gap:11px;color:#a2a2a7;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px;}
+    .section-label:before{content:"";width:31px;height:2px;background:var(--red);}
+    .section-label b{color:var(--red);}
+    .winners-heading{font-family:"Barlow Condensed",sans-serif;font-size:clamp(38px,4vw,54px);font-weight:700;letter-spacing:-.04em;text-transform:uppercase;margin-bottom:32px;}
+    .winners-table{display:grid;gap:8px;}
+    .winner-item{display:grid;grid-template-columns:80px 1fr 200px 100px;gap:20px;align-items:center;padding:16px 20px;border:1px solid rgba(255,255,255,.1);border-left:2px solid transparent;background:#131315;transition:all .2s;}
+    .winner-item:hover{border-left-color:var(--red);background:#1a1a1d;transform:translateX(4px);}
+    .winner-item.upcoming{opacity:.5;border-left-color:#444;}
+    .winner-year{color:var(--red);font-family:"Barlow Condensed",sans-serif;font-size:32px;font-weight:700;}
+    .winner-driver{font-size:15px;font-weight:600;color:#f0f0f0;}
+    .winner-team{color:#666;font-size:11px;margin-top:3px;}
+    .winner-status{display:inline-flex;align-items:center;padding:4px 10px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+    .winner-status.done{background:rgba(232,0,45,.15);color:var(--red);border:1px solid rgba(232,0,45,.3);}
+    .winner-status.upcoming-badge{background:rgba(255,255,255,.05);color:#666;border:1px solid rgba(255,255,255,.1);}
+    .winner-laps{color:#555;font-size:11px;}
+
+    footer{border-top:1px solid var(--line);padding:32px 0;color:#717176;font-size:10px;}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;}
+    .footer-brand{color:#e5e5e7;font-family:"Barlow Condensed",sans-serif;font-size:18px;font-style:italic;font-weight:700;}
+
+    @media(max-width:900px){.circuit-map-inner{grid-template-columns:1fr}.desktop-nav{display:none}.winner-item{grid-template-columns:60px 1fr 100px}}
+    @media(max-width:600px){.winner-item{grid-template-columns:60px 1fr}.winner-status,.winner-laps{display:none}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge">F1</span> GridScope</a>
+    <nav class="desktop-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#archive">Seasons</a>
+      <a href="index.html#drivers">Drivers</a>
+      <a href="cars.html">Cars</a>
+      <a class="active" href="tracks.html">Circuits</a>
+    </nav>
+  </header>
+
+  <section class="circuit-hero">
+    <div class="circuit-hero-bg" id="hero-bg"></div>
+    <div class="circuit-hero-shade"></div>
+    <div class="circuit-hero-content page-width">
+      <div class="circuit-eyebrow" id="circuit-eyebrow">Loading...</div>
+      <h1 id="circuit-h1"><span>Loading</span> Circuit</h1>
+      <div class="circuit-meta-row">
+        <span class="circuit-badge" id="circuit-location">📍 Loading...</span>
+        <span class="circuit-badge" id="circuit-country">🏳️ Loading...</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="circuit-map">
+    <div class="page-width">
+      <a class="back-btn" href="tracks.html">← Back to Circuits</a>
+      <div class="circuit-map-inner">
+        <div class="circuit-image-box" id="circuit-img-box">
+          <div class="circuit-image-placeholder">🏎️</div>
+        </div>
+        <div class="circuit-info-grid" id="circuit-info-grid">
+          <div class="info-card"><label>Circuit</label><span id="info-circuit">-</span></div>
+          <div class="info-card"><label>Country</label><span id="info-country">-</span></div>
+          <div class="info-card"><label>Location</label><span id="info-locality">-</span></div>
+          <div class="info-card"><label>Data Source</label><span>Jolpica F1 API</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="circuit-winners">
+    <div class="page-width">
+      <div class="section-label"><b>04</b> Historical winners</div>
+      <h2 class="winners-heading" id="winners-heading">Winners 2021–2026</h2>
+      <div class="winners-table" id="winners-table">
+        <p style="color:#444">Loading winners...</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="page-width footer-inner">
+      <span class="footer-brand">🏎️ F1 GridScope</span>
+      <span>Every circuit. Every winner.</span>
+    </div>
+  </footer>
+
+  <script>
+    const API = 'http://127.0.0.1:5000/api';
+    const params = new URLSearchParams(window.location.search);
+    const circuitId = params.get('id');
+    const raceName = params.get('name') || 'Circuit';
+
+    document.title = `F1 GridScope — ${raceName}`;
+
+    async function loadCircuitDetail() {
+      if (!circuitId) {
+        document.getElementById('circuit-h1').innerHTML = '<span>Circuit</span> Not Found';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API}/races/circuit/${circuitId}/detail`);
+        const data = await res.json();
+        const circuit = data.circuit;
+        const winners = data.winners;
+
+        if (circuit.circuitName) {
+          const gpName = raceName.replace(' Grand Prix', '');
+          document.getElementById('circuit-eyebrow').textContent = `${circuit.country} / Grand Prix Circuit`;
+          document.getElementById('circuit-h1').innerHTML = `<span>${gpName}</span> Grand Prix`;
+          document.getElementById('circuit-location').textContent = `📍 ${circuit.locality}, ${circuit.country}`;
+          document.getElementById('circuit-country').textContent = `🏁 ${circuit.circuitName}`;
+          document.getElementById('info-circuit').textContent = circuit.circuitName;
+          document.getElementById('info-country').textContent = circuit.country;
+          document.getElementById('info-locality').textContent = circuit.locality;
+          document.getElementById('winners-heading').textContent = `${circuit.circuitName} — Winners 2021–2026`;
+        }
+
+        // load circuit image
+        try {
+          const imgRes = await fetch(`${API}/races/circuit/${circuitId}/image`);
+          const imgData = await imgRes.json();
+          if (imgData.image) {
+            document.getElementById('hero-bg').style.backgroundImage = `url('${imgData.image}')`;
+            document.getElementById('circuit-img-box').innerHTML = `<img src="${imgData.image}" alt="${circuit.circuitName}">`;
+          }
+        } catch(e) {}
+
+        // render winners
+        const table = document.getElementById('winners-table');
+        const years = [2021, 2022, 2023, 2024, 2025, 2026];
+        table.innerHTML = years.map(year => {
+          const w = winners[String(year)];
+          if (!w) {
+            return `<div class="winner-item upcoming">
+              <span class="winner-year">${year}</span>
+              <div><div class="winner-driver">No race held</div><div class="winner-team">—</div></div>
+              <span></span>
+              <span class="winner-status upcoming-badge">No data</span>
+            </div>`;
+          }
+          if (w.status === 'upcoming') {
+            return `<div class="winner-item upcoming">
+              <span class="winner-year">${year}</span>
+              <div><div class="winner-driver">${w.raceName}</div><div class="winner-team">${w.date}</div></div>
+              <span></span>
+              <span class="winner-status upcoming-badge">Upcoming</span>
+            </div>`;
+          }
+          return `<div class="winner-item">
+            <span class="winner-year">${year}</span>
+            <div><div class="winner-driver">${w.driver}</div><div class="winner-team">${w.constructor}</div></div>
+            <span class="winner-laps">${w.laps} laps · Grid P${w.grid}</span>
+            <span class="winner-status done">Race result</span>
+          </div>`;
+        }).join('');
+
+      } catch(e) {
+        console.error(e);
+      }
+    }
+
+    loadCircuitDetail();
+  </script>
+</body>
+</html>

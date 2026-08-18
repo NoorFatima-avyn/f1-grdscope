@@ -88,4 +88,58 @@ def get_circuit_image(circuit_id):
     if not wiki_name:
         return jsonify({'image': ''})
     img = get_wikipedia_image(wiki_name)
-    return jsonify({'image': img})  
+    return jsonify({'image': img})
+
+@races_bp.route('/circuit/<circuit_id>/detail', methods=['GET'])
+def get_circuit_detail(circuit_id):
+    import requests as req
+    from datetime import datetime
+    today = datetime.now().strftime('%Y-%m-%d')
+    
+    winners = {}
+    circuit_info = {}
+    
+    for year in [2021, 2022, 2023, 2024, 2025, 2026]:
+        url = f"https://api.jolpi.ca/ergast/f1/{year}/circuits/{circuit_id}/results/1.json"
+        try:
+            response = req.get(url, timeout=8)
+            data = response.json()
+            races = data['MRData']['RaceTable']['Races']
+            if races:
+                r = races[0]
+                if not circuit_info:
+                    circuit_info = {
+                        'circuitId': circuit_id,
+                        'circuitName': r['Circuit']['circuitName'],
+                        'country': r['Circuit']['Location']['country'],
+                        'locality': r['Circuit']['Location']['locality'],
+                        'lat': r['Circuit']['Location']['lat'],
+                        'long': r['Circuit']['Location']['long'],
+                        'url': r['Circuit'].get('url', '')
+                    }
+                result = r['Results'][0]
+                race_date = r.get('date', '')
+                winners[str(year)] = {
+                    'driver': f"{result['Driver']['givenName']} {result['Driver']['familyName']}",
+                    'constructor': result['Constructor']['name'],
+                    'raceName': r['raceName'],
+                    'date': race_date,
+                    'laps': result.get('laps', '-'),
+                    'grid': result.get('grid', '-'),
+                    'status': result.get('status', '-')
+                }
+            else:
+                race_date_url = f"https://api.jolpi.ca/ergast/f1/{year}/circuits/{circuit_id}/races.json"
+                r2 = req.get(race_date_url, timeout=5).json()
+                races2 = r2['MRData']['RaceTable']['Races']
+                if races2:
+                    rd = races2[0].get('date', '')
+                    if rd > today:
+                        winners[str(year)] = {'status': 'upcoming', 'raceName': races2[0]['raceName'], 'date': rd}
+        except:
+            continue
+    
+    return jsonify({
+        'circuit': circuit_info,
+        'winners': winners
+    })  

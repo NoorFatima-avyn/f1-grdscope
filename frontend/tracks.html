@@ -131,7 +131,7 @@
           const date = new Date(r.date);
           const dateStr = date.toLocaleDateString('en',{day:'numeric',month:'short'}).toUpperCase();
           return `
-          <div class="track-card" data-circuit="${r.circuitId}" data-loaded="false">
+          <div class="track-card" data-circuit="${r.circuitId}" onclick="window.location.href='circuit.html?id=${r.circuitId}&name=${encodeURIComponent(r.raceName)}'" data-loaded="false">
             <div class="track-round">${String(r.round).padStart(2,'0')}</div>
             <div class="track-name">${r.raceName.replace(' Grand Prix','')} ${flag}</div>
             <div class="track-circuit">${r.circuit}</div>
