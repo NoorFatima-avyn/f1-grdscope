@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
 import os
 
@@ -22,6 +22,15 @@ def create_app():
     app.register_blueprint(chat_bp, url_prefix='/api/chat')
     app.register_blueprint(predictions_bp, url_prefix='/api/predictions')
 
+    @app.route('/debug')
+    def debug():
+        return jsonify({
+            'frontend_path': frontend_path,
+            'exists': os.path.exists(frontend_path),
+            'files': os.listdir(frontend_path) if os.path.exists(frontend_path) else 'NOT FOUND',
+            'cwd': os.getcwd()
+        })
+
     @app.route('/')
     def index():
         return send_from_directory(frontend_path, 'index.html')
@@ -29,17 +38,10 @@ def create_app():
     @app.route('/<path:path>')
     def serve_static(path):
         return send_from_directory(frontend_path, path)
-        @app.route('/debug')
-    def debug():
-        return {
-            'frontend_path': frontend_path,
-            'exists': os.path.exists(frontend_path),
-            'files': os.listdir(frontend_path) if os.path.exists(frontend_path) else 'NOT FOUND',
-            'cwd': os.getcwd()
-        }
-    
+
     return app
 
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True)
+    
