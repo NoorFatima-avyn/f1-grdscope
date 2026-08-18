@@ -1,13 +1,12 @@
 from flask import Flask, send_from_directory
 from flask_cors import CORS
-import os
 
 from routes.seasons import seasons_bp
 from routes.drivers import drivers_bp
 from routes.races import races_bp
 from routes.teams import teams_bp
 from routes.chat import chat_bp
-from routes.predictions import predictions_bp
+from routes.prediction import predictions_bp
 
 def create_app():
     app = Flask(__name__, static_folder='../frontend', static_url_path='')
@@ -33,5 +32,3 @@ def create_app():
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True)
-
-
