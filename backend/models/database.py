@@ -8,11 +8,9 @@ if not firebase_admin._apps:
     firebase_key_json = os.environ.get("FIREBASE_KEY_JSON")
     
     if firebase_key_json:
-        # production: load from environment variable
         key_dict = json.loads(firebase_key_json)
         cred = credentials.Certificate(key_dict)
     else:
-        # local: load from file
         key_path = Path('D:/AI,ML NOOR/f1-gridscope/firebase-key.json')
         cred = credentials.Certificate(str(key_path))
     
