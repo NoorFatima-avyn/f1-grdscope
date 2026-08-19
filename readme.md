@@ -68,6 +68,9 @@ python app.py
 
 Coming soon
 
+LIVE URL
+https://noorfatimaavyn.pythonanywhere.com
+
 ## Made by
 
 Noor Fatima — BS Artificial Intelligence, NuTech
