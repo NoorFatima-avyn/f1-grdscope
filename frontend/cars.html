@@ -120,7 +120,7 @@
 
     let images = {};
     try {
-        const res = await fetch(`http://127.0.0.1:5000/api/teams/car-images/${year}`);
+        const res = await fetch(`https://noorfatimaavyn.pythonanywhere.com/api/teams/car-images/${year}`);
         images = await res.json();
     } catch(e) { console.log('Images failed', e); }
 
