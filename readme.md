@@ -96,12 +96,7 @@ A closer look at GridScope across seasons, drivers, races, cars, and circuits.
 </tr>
 </table>
 
-## Demo
 
-🎥 A full screen recording walkthrough of GridScope is available here: **[Add your screen recording link here]**
-
-> To add it: either commit the video to the repo (e.g. `assets/demo.mp4`, keep it under 100MB) and embed it with
-> `<video src="assets/demo.mp4" controls width="800"></video>` — this only renders on GitHub's web view — or host it on YouTube/Loom and paste the link above.
 
 ## Made by
 
