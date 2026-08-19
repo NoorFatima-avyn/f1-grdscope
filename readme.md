@@ -1,9 +1,10 @@
 # 🏎️ F1 GridScope
 
+
 A comprehensive Formula 1 data explorer web app covering seasons 2021–2026. Built with Python Flask and vanilla JavaScript.
 
 ## Live Demo
-[Coming soon]
+🔗 **[https://noorfatimaavyn.pythonanywhere.com](https://noorfatimaavyn.pythonanywhere.com)**
 
 ## Features
 
@@ -66,10 +67,41 @@ python app.py
 
 ## Screenshots
 
-Coming soon
+A closer look at GridScope across seasons, drivers, races, cars, and circuits.
 
-LIVE URL
-https://noorfatimaavyn.pythonanywhere.com
+<table>
+<tr>
+<td width="50%"><b>Home</b><br><img src="screenshots/01-home-hero.png" width="100%"/></td>
+<td width="50%"><b>Home — rotating driver banner</b><br><img src="screenshots/02-home-hero-alt.png" width="100%"/></td>
+</tr>
+<tr>
+<td width="50%"><b>Season Archive</b><br><img src="screenshots/03-title-fights.png" width="100%"/></td>
+<td width="50%"><b>Season Snapshot</b><br><img src="screenshots/04-season-snapshot.png" width="100%"/></td>
+</tr>
+<tr>
+<td width="50%"><b>Race Calendar</b><br><img src="screenshots/05-race-calendar.png" width="100%"/></td>
+<td width="50%"><b>AI Race Predictor</b><br><img src="screenshots/06-ai-race-predictor.png" width="100%"/></td>
+</tr>
+<tr>
+<td width="50%"><b>Driver Lineup</b><br><img src="screenshots/07-driver-lineup.png" width="100%"/></td>
+<td width="50%"><b>Cars Archive</b><br><img src="screenshots/08-cars-overview.png" width="100%"/></td>
+</tr>
+<tr>
+<td width="50%"><b>Car Detail</b><br><img src="screenshots/09-cars-detail.png" width="100%"/></td>
+<td width="50%"><b>Circuit Detail</b><br><img src="screenshots/10-circuit-detail.png" width="100%"/></td>
+</tr>
+<tr>
+<td width="50%"><b>Circuit — Historical Winners</b><br><img src="screenshots/11-circuit-winners.png" width="100%"/></td>
+<td width="50%"></td>
+</tr>
+</table>
+
+## Demo
+
+🎥 A full screen recording walkthrough of GridScope is available here: **[Add your screen recording link here]**
+
+> To add it: either commit the video to the repo (e.g. `assets/demo.mp4`, keep it under 100MB) and embed it with
+> `<video src="assets/demo.mp4" controls width="800"></video>` — this only renders on GitHub's web view — or host it on YouTube/Loom and paste the link above.
 
 ## Made by
 
